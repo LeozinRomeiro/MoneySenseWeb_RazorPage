@@ -8,7 +8,7 @@ namespace MoneySenseWeb.Pages.Category
     public class EditModel : PageModel
     {
         [BindProperty]
-        public Models.Category Category { get; set; } = new();
+        public Models.Category Category { get; set; }
         private readonly ApplicationDbContext _context;
         public EditModel(ApplicationDbContext context)
         {
@@ -16,39 +16,39 @@ namespace MoneySenseWeb.Pages.Category
         }
         public async Task OnGetAsync(int id)
         {
-            if (id != 0)
-                Category = await _context.Categorys.FindAsync(id);
-
+            Category = await _context.Categorys.FindAsync(id);
         }
-        public async Task<IActionResult> OnPostAsync(int id)
+        public async Task<IActionResult> OnPostAsync()
         {
-            Category.CategoryId = id;
-
-            if (ModelState.IsValid)
+            try
             {
-                try
+                var model = await _context.Categorys.FindAsync(Category.CategoryId);
+
+                if (model == null)
                 {
-                    if (Category.CategoryId == 0)
-                        await _context.AddAsync(Category);
-                    else
-                        _context.Update(Category);
-                    await _context.SaveChangesAsync();
+                    return NotFound();
                 }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!CategoryExists(Category.CategoryId))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToPage("/Category/Index");
+
+                model.Title = Category.Title;
+                model.Description = Category.Description;
+                model.Icon = Category.Icon;
+                model.Type = Category.Type;
+
+                _context.Update(model);
+                await _context.SaveChangesAsync();
             }
-            ModelState.AddModelError("", "Erro de validação. Corrija os campos destacados.");
-            return Page();
+            catch (DbUpdateConcurrencyException)
+            {
+                if (!CategoryExists(Category.CategoryId))
+                {
+                    return NotFound();
+                }
+                else
+                {
+                    throw;
+                }
+            }
+            return RedirectToPage("/Category");
         }
 
         private bool CategoryExists(int id)

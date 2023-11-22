@@ -1,10 +1,10 @@
-﻿@page
+﻿@page "/categorias"
 @model Category.IndexModel
 
 @{
     ViewData["PageTitle"] = "Categorias";
     ViewData["PageActionText"] = "+ New Categoria";
-    ViewData["PageActionUrl"] = "/Category/Editor";
+    ViewData["PageActionUrl"] = "/category/criar";
 }
 
 
@@ -38,11 +38,11 @@
 
     <script id="actionColumnTemplate" type="text/x-template">
         <div class="d-flex flex-row justify-content-start">
-            <a class="btn btn-sm no-a-decoration" href="/Category/Editor/${CategoryId}">
+            <a class="btn btn-sm no-a-decoration" href="/categorias/editar/${CategoryId}">
                 <i class="fa-solid fa-pen fa-lg"></i>
             </a>
             <form action="/Category/Delete/${CategoryId}" method="post">
-        @Html.AntiForgeryToken()
+                  @Html.AntiForgeryToken()
                 <button type="submit" class="btn btn-sm btn-link no-a-decoration"
                 onclick="return confirm(&quot;Confirma a exclusão dessa categoria??&quot;)">
                     <i class="fa-solid fa-trash-can fa-lg text-danger"></i>

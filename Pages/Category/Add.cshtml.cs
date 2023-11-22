@@ -19,7 +19,7 @@ namespace MoneySenseWeb.Pages.Category
         {
 
         }
-        public async Task OnPostAsync()
+        public async Task<IActionResult> OnPostAsync()
         {
             var category = new Models.Category
             {
@@ -28,38 +28,10 @@ namespace MoneySenseWeb.Pages.Category
                 Icon = CategoryRequest.Icon,
                 Type = CategoryRequest.Type
             };
-            _context.Categorys.AddAsync(category);
+            await _context.Categorys.AddAsync(category);
+            await _context.SaveChangesAsync();
 
-            //if (ModelState.IsValid)
-            //{
-            //    try
-            //    {
-            //        if (Category.CategoryId == 0)
-            //            await _context.AddAsync(Category);
-            //        else
-            //            _context.Update(Category);
-            //        await _context.SaveChangesAsync();
-            //    }
-            //    catch (DbUpdateConcurrencyException)
-            //    {
-            //        if (!CategoryExists(Category.CategoryId))
-            //        {
-            //            return NotFound();
-            //        }
-            //        else
-            //        {
-            //            throw;
-            //        }
-            //    }
-            //    return RedirectToPage("/Category/Index");
-            //}
-            //ModelState.AddModelError("", "Erro de validação. Corrija os campos destacados.");
-            //return Page();
-        }
-
-        private bool CategoryExists(int id)
-        {
-            return (_context.Categorys?.Any(e => e.CategoryId == id)).GetValueOrDefault();
+            return RedirectToPage("categorias/");
         }
     }
 }
