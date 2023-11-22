@@ -14,28 +14,26 @@ namespace MoneySenseWeb.Pages.Category
         {
             _context = context;
         }
-        public async Task OnGetAsync(int id)
+        public void OnGetAsync(int id)
         {
-            Category = await _context.Categorys.FindAsync(id);
+            Category = _context.Categorys.Find(id);
         }
-        public async Task<IActionResult> OnPostAsync()
+        public async Task<IActionResult> OnPostEditAsync(int id)
         {
             try
             {
-                var model = await _context.Categorys.FindAsync(Category.CategoryId);
+                var model = _context.Categorys.Find(id);
 
-                if (model == null)
-                {
+                if(model == null) {
                     return NotFound();
                 }
-
                 model.Title = Category.Title;
                 model.Description = Category.Description;
                 model.Icon = Category.Icon;
                 model.Type = Category.Type;
-
                 _context.Update(model);
                 await _context.SaveChangesAsync();
+
             }
             catch (DbUpdateConcurrencyException)
             {
@@ -48,7 +46,17 @@ namespace MoneySenseWeb.Pages.Category
                     throw;
                 }
             }
-            return RedirectToPage("/Category");
+            return RedirectToPage("categorias");
+        }
+
+        public IActionResult OnPostDeleteAsync(int id) {
+            var model = _context.Categorys.Find(id);
+            if (model is not null) {
+                _context.Categorys.Remove(model);
+                _context.SaveChanges();
+                return RedirectToPage("/categorias");
+            }
+            return NotFound();
         }
 
         private bool CategoryExists(int id)

@@ -4,7 +4,7 @@
 @{
     ViewData["PageTitle"] = "Categorias";
     ViewData["PageActionText"] = "+ New Categoria";
-    ViewData["PageActionUrl"] = "/category/criar";
+    ViewData["PageActionUrl"] = "/categorias/criar";
 }
 
 
@@ -43,10 +43,6 @@
             </a>
             <form action="/Category/Delete/${CategoryId}" method="post">
                   @Html.AntiForgeryToken()
-                <button type="submit" class="btn btn-sm btn-link no-a-decoration"
-                onclick="return confirm(&quot;Confirma a exclusão dessa categoria??&quot;)">
-                    <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
-                </button>
             </form>
         </div>
     </script>

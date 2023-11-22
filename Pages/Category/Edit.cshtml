@@ -1,7 +1,7 @@
 ﻿@page "/categorias/editar/{id:int}"
 @model Category.EditModel
 @{
-    ViewData["PageTitle"] = Model.Category.CategoryId == 0 ? "Nova categoria" : "Editar categoria";
+    ViewData["PageTitle"] = "Editar categoria";
 }
 
 <div class="row">
@@ -9,7 +9,7 @@
         <div class="widget p-5">
             <form method="post">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                <input type="hidden" name="CategoryId" value="@Model.Category.CategoryId" />
+                <input type="hidden" name="CategoryId" value="@Model.Category.CategoryId"/>
                 <div class="mb-3">
                     <div class='e-btn-group custom-rbt-group'>
                         <input type="radio" id="radioleft" name="Type" value="Expense" checked="@(Model.Category.Type=="Expense")" />
@@ -28,7 +28,11 @@
                 <div class="mb-3">
                     <ejs-textbox id="Icon" placeholder="Emoji" ejs-for="@Model.Category.Icon" floatLabelType="Always"></ejs-textbox>
                 </div>
-                <ejs-button id="submit" type="submit" content="Salvar" cssClass="e-success"></ejs-button>
+                <ejs-button id="submit" type="submit" content="Salvar" cssClass="e-success" asp-page-handler="Edit"></ejs-button>
+                <button type="submit" class="btn btn-sm btn-link no-a-decoration" asp-page-handler="Delete"
+                        onclick="return confirm(&quot;Confirma a exclusão dessa categoria??&quot;)">
+                    <i class="fa-solid fa-trash-can fa-lg text-danger"></i>
+                </button>
             </form>
         </div>
     </div>

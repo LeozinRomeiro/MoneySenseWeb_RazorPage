@@ -31,7 +31,7 @@ namespace MoneySenseWeb.Pages.Category
             await _context.Categorys.AddAsync(category);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("categorias/");
+            return RedirectToPage("/categorias");
         }
     }
 }
