@@ -45,7 +45,7 @@ namespace MoneySenseWeb.Pages.Transaction
             {
                 throw;
             }
-            return RedirectToPage("");
+            return this.RedirectToPage(nameof(Index));
         }
     }
 }

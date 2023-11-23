@@ -39,7 +39,7 @@ namespace MoneySenseWeb.Pages.Transaction
             await _context.Transactions.AddAsync(transaction);
             await _context.SaveChangesAsync();
 
-            return RedirectToPage("/movimentacoes");
+            return this.RedirectToPage(nameof(Index));
         }
     }
 }

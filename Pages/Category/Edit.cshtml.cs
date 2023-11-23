@@ -46,7 +46,7 @@ namespace MoneySenseWeb.Pages.Category
                     throw;
                 }
             }
-            return RedirectToPage("Category");
+            return this.RedirectToPage(nameof(Index));
         }
 
         public IActionResult OnPostDeleteAsync(int id) {
@@ -54,7 +54,7 @@ namespace MoneySenseWeb.Pages.Category
             if (model is not null) {
                 _context.Categorys.Remove(model);
                 _context.SaveChanges();
-                return RedirectToPage("/categorias");
+                return this.RedirectToPage(nameof(Index));
             }
             return NotFound();
         }
