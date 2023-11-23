@@ -9,7 +9,7 @@ namespace MoneySenseWeb.Models
         public string Title { get; set; }
         public string? Description { get; set; }
         public string Icon { get; set; } = "";
-        public string Type { get; set; } = "Expense";
+        public string Type { get; set; } = "Income";
         public string? TitleWithIcon
         {
             get

@@ -11,11 +11,20 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <input type="hidden" name="CategoryId" value="@Model.Category.CategoryId"/>
                 <div class="mb-3">
-                    <div class='e-btn-group custom-rbt-group'>
-                        <input type="radio" id="radioleft" name="Type" value="Expense" checked="@(Model.Category.Type=="Expense")" />
-                        <label class="e-btn" for="radioleft">Dispesa</label>
-                        <input type="radio" id="radiomiddle" name="Type" value="Income" checked="@(Model.Category.Type=="Income")" />
-                        <label class="e-btn" for="radiomiddle">Receita</label>
+                    <div class="form-group">
+                        <label asp-for="Category.Type" class="control-label"></label>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" asp-for="Category.Type" value="Expense" />
+                                Dispesa
+                            </label>
+                        </div>
+                        <div class="radio">
+                            <label>
+                                <input type="radio" asp-for="Category.Type" value="Income" />
+                                Receita
+                            </label>
+                        </div>
                     </div>
                 </div>
                 <div class="mb-3">

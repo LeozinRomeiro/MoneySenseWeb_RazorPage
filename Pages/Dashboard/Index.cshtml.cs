@@ -10,8 +10,8 @@ namespace MoneySenseWeb.Pages.Dashboard
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public DateTime EndDate { get; set; }
-        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; } = DateTime.Today;
+        public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-90);
         public double TotalIncome { get; set; }
         public double TotalExpense { get; set; }
         public double Outcome { get; set; }
@@ -26,9 +26,6 @@ namespace MoneySenseWeb.Pages.Dashboard
         }
         public async Task OnGet()
         {
-            //Ultima semana
-            StartDate = DateTime.Today.AddDays(-30);
-            EndDate = DateTime.Today;
 
             List<Models.Transaction> SelectedTransactions = await _context.Transactions.Include(t => t.Category)
                 .Where(y => y.Date >= StartDate && y.Date <= EndDate)
@@ -107,6 +104,12 @@ namespace MoneySenseWeb.Pages.Dashboard
                 .Take(5)
                 .ToListAsync();
         }
+
+        public async Task OnPostAsync()
+        {
+            OnGet();
+        }
+
         public class SplineChartData
         {
             public string day;
