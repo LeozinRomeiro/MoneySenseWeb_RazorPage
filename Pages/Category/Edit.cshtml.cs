@@ -8,7 +8,7 @@ namespace MoneySenseWeb.Pages.Category
     public class EditModel : PageModel
     {
         [BindProperty]
-        public Models.Category Category { get; set; }
+        public Models.Category Category { get; set; } = new();
         private readonly ApplicationDbContext _context;
         public EditModel(ApplicationDbContext context)
         {
@@ -18,7 +18,7 @@ namespace MoneySenseWeb.Pages.Category
         {
             Category = _context.Categorys.Find(id);
         }
-        public async Task<IActionResult> OnPostEditAsync(int id)
+        public async Task<IActionResult> OnPostAsync(int id)
         {
             try
             {
@@ -46,7 +46,7 @@ namespace MoneySenseWeb.Pages.Category
                     throw;
                 }
             }
-            return RedirectToPage("categorias");
+            return RedirectToPage("Category");
         }
 
         public IActionResult OnPostDeleteAsync(int id) {

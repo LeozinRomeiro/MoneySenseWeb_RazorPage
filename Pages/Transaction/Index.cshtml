@@ -1,6 +1,11 @@
 ﻿@page "/movimentacoes"
 @model Transaction.IndexModel
 @{
+    ViewData["PageTitle"] = "Movimentações";
+    ViewData["PageActionText"] = "+ Nova Movimentação";
+    ViewData["PageActionUrl"] = "/movimentacoes/criar";
+}
+@{
     <div class="row">
         <div class="col-md-7">
             <ejs-grid id="transactions" dataSource="@Model.Transactions" gridLines="None"
@@ -24,7 +29,7 @@
 
     <script id="actionColumnTemplate" type="text/x-template">
         <div class="d-flex flex-row justify-content-start">
-            <a class="btn btn-sm no-a-decoration" href="/Transaction/Editor/${TransactionId}">
+            <a class="btn btn-sm no-a-decoration" href="/movimentacoes/editar/${TransactionId}">
                 <i class="fa-solid fa-pen fa-lg"></i>
             </a>
             <form action="/Transaction/Delete/${CategoryId}" method="post">
