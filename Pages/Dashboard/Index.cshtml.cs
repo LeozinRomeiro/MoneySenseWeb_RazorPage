@@ -10,8 +10,8 @@ namespace MoneySenseWeb.Pages.Dashboard
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;
-        public DateTime EndDate { get; set; } = DateTime.Today;
-        public DateTime StartDate { get; set; } = DateTime.Today.AddDays(-90);
+        [BindProperty]
+        public DeterminedDate DeterminedDate { get; set; } = new();
         public double TotalIncome { get; set; }
         public double TotalExpense { get; set; }
         public double Outcome { get; set; }
@@ -26,9 +26,19 @@ namespace MoneySenseWeb.Pages.Dashboard
         }
         public async Task OnGet()
         {
+            await UpdateDados();
+        }
 
+        public async Task OnPostUpdateAsync()
+        {
+
+            await UpdateDados();
+        }
+
+        public async Task UpdateDados()
+        {
             List<Models.Transaction> SelectedTransactions = await _context.Transactions.Include(t => t.Category)
-                .Where(y => y.Date >= StartDate && y.Date <= EndDate)
+                .Where(y => y.Date >= DeterminedDate.StartDate && y.Date <= DeterminedDate.EndDate)
                 .Take(20)
                 .ToListAsync();
 
@@ -82,20 +92,20 @@ namespace MoneySenseWeb.Pages.Dashboard
                 .ToList();
 
             string[] Last7Days = Enumerable.Range(0, 30)
-                .Select(i => StartDate.AddDays(i).ToString("dd-MMM"))
+                .Select(i => DeterminedDate.StartDate.AddDays(i).ToString("dd-MMM"))
                 .ToArray();
 
             SplineChartDataView = from day in Last7Days
-                                      join income in IncomeSummary on day equals income.day into dayIncomeJoined
-                                      from income in dayIncomeJoined.DefaultIfEmpty()
-                                      join expense in ExpenseSummary on day equals expense.day into expenseJoined
-                                      from expense in expenseJoined.DefaultIfEmpty()
-                                      select new
-                                      {
-                                          day = day,
-                                          income = income == null ? 0 : income.income,
-                                          expense = expense == null ? 0 : expense.expense,
-                                      };
+                                  join income in IncomeSummary on day equals income.day into dayIncomeJoined
+                                  from income in dayIncomeJoined.DefaultIfEmpty()
+                                  join expense in ExpenseSummary on day equals expense.day into expenseJoined
+                                  from expense in expenseJoined.DefaultIfEmpty()
+                                  select new
+                                  {
+                                      day = day,
+                                      income = income == null ? 0 : income.income,
+                                      expense = expense == null ? 0 : expense.expense,
+                                  };
 
             //Trasações recentes
             RecentTransactions = await _context.Transactions
@@ -104,12 +114,6 @@ namespace MoneySenseWeb.Pages.Dashboard
                 .Take(5)
                 .ToListAsync();
         }
-
-        public async Task OnPostAsync()
-        {
-            OnGet();
-        }
-
         public class SplineChartData
         {
             public string day;
