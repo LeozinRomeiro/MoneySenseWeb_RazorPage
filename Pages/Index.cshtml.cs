@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Identity.UI.V4.Pages.Account.Internal;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace MoneySenseWeb.Pages
@@ -14,7 +15,6 @@ namespace MoneySenseWeb.Pages
 
         public void OnGet()
         {
-
         }
     }
 }
