@@ -111,7 +111,7 @@ namespace MoneySenseWeb.Pages.Dashboard
             RecentTransactions = await _context.Transactions
                 .Include(i => i.Category)
                 .OrderByDescending(j => j.Date)
-                .Take(5)
+                .Take(20)
                 .ToListAsync();
         }
         public class SplineChartData

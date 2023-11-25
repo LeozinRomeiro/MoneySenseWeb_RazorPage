@@ -7,10 +7,9 @@ namespace MoneySenseWeb.Areas.Identity.Data
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
+            
             builder.ToTable("User");
 
-            builder.HasKey(x => x.Id);
-            
         }
     }
 }

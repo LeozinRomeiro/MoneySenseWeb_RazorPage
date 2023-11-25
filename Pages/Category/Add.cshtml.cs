@@ -28,7 +28,7 @@ namespace MoneySenseWeb.Pages.Category
                 Icon = CategoryRequest.Icon,
                 Type = CategoryRequest.Type
             };
-            await _context.Categorys.AddAsync(category);
+            await _context.Categories.AddAsync(category);
             await _context.SaveChangesAsync();
 
             return this.RedirectToPage(nameof(Index));

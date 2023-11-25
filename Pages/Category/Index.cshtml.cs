@@ -16,7 +16,7 @@ namespace MoneySenseWeb.Pages.Category
         }
         public async Task OnGetAsync()
         {
-            Categories = await _context.Categorys.ToListAsync();
+            Categories = await _context.Categories.ToListAsync();
             //return _context.Categorys != null ?
             //    await _context.Categorys.ToListAsync() :
             //    Problem("Entity set 'ApplicationDbContext.Categorys'  is null.");

@@ -11,7 +11,7 @@ public class ApplicationDbContext : DbContext
     {
         
     }
-    public DbSet<Category> Categorys { get; set; }
+    public DbSet<Category> Categories { get; set; }
     public DbSet<Transaction> Transactions { get; set; }
 
     //optionsBuilder.UseSqlServer("");//optionsBuilder.LogTo(Console.WriteLine);

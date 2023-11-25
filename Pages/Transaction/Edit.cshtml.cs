@@ -18,7 +18,7 @@ namespace MoneySenseWeb.Pages.Transaction
         public async Task OnGetAsync(int id)
         {
             Transaction = await _context.Transactions.FindAsync(id);
-            var CategoryCollection = _context.Categorys.ToList();
+            var CategoryCollection = _context.Categories.ToList();
             Models.Category DefaultCategory = new Models.Category() { CategoryId = 0, Title = "Escolha uma Categoria" };
             CategoryCollection.Insert(0, DefaultCategory);
             OptionsCategories = CategoryCollection;

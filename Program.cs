@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using MoneySenseWeb.Areas.Identity.Data;
 using MoneySenseWeb.Data;
 using System.Globalization;
 
@@ -15,6 +16,14 @@ namespace MoneySenseWeb
                 //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
+            builder.Services.AddDbContext<MoneySenseWebContext>(options =>
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
+                );
+
+            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+                 .AddEntityFrameworkStores<MoneySenseWebContext>();
+    
             // Add services to the container.
             builder.Services.AddRazorPages();
 

@@ -16,13 +16,13 @@ namespace MoneySenseWeb.Pages.Category
         }
         public void OnGetAsync(int id)
         {
-            Category = _context.Categorys.Find(id);
+            Category = _context.Categories.Find(id);
         }
         public async Task<IActionResult> OnPostAsync(int id)
         {
             try
             {
-                var model = _context.Categorys.Find(id);
+                var model = _context.Categories.Find(id);
 
                 if(model == null) {
                     return NotFound();
@@ -50,9 +50,9 @@ namespace MoneySenseWeb.Pages.Category
         }
 
         public IActionResult OnPostDeleteAsync(int id) {
-            var model = _context.Categorys.Find(id);
+            var model = _context.Categories.Find(id);
             if (model is not null) {
-                _context.Categorys.Remove(model);
+                _context.Categories.Remove(model);
                 _context.SaveChanges();
                 return this.RedirectToPage(nameof(Index));
             }
@@ -61,7 +61,7 @@ namespace MoneySenseWeb.Pages.Category
 
         private bool CategoryExists(int id)
         {
-            return (_context.Categorys?.Any(e => e.CategoryId == id)).GetValueOrDefault();
+            return (_context.Categories?.Any(e => e.CategoryId == id)).GetValueOrDefault();
         }
     }
 }

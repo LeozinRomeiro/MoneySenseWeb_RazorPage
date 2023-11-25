@@ -16,7 +16,6 @@ public class MoneySenseWebContext : IdentityDbContext<User>
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
-        builder.ApplyConfiguration(new UserMap());
 
         builder.Ignore<IdentityUserClaim<string>>();
         builder.Ignore<IdentityUserRole<string>>();
@@ -24,5 +23,6 @@ public class MoneySenseWebContext : IdentityDbContext<User>
         builder.Ignore<IdentityUserToken<string>>();
         builder.Ignore<IdentityRoleClaim<string>>();
         builder.Ignore<IdentityRole<string>>();
+        builder.ApplyConfiguration(new UserMap());
     }
 }
