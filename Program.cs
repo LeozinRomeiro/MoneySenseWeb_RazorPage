@@ -27,6 +27,16 @@ namespace MoneySenseWeb
             // Add services to the container.
             builder.Services.AddRazorPages();
 
+            builder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Conta/Login";
+            });
+
+            builder.Services.AddRazorPages(options =>
+            {
+                options.Conventions.AddPageRoute("/Conta/Login", "");
+            });
+
             //Register Syncfusion license
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF5cXmVCf1JpRGtGfV5yd0VAal5QTnRaUj0eQnxTdEZiWH5fcXxXR2JZVEJxWg==");
 

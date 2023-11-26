@@ -4,9 +4,11 @@ using Microsoft.EntityFrameworkCore;
 using MoneySenseWeb.Data;
 using System.Globalization;
 using MoneySenseWeb.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MoneySenseWeb.Pages.Dashboard
 {
+    [Authorize]
     public class IndexModel : PageModel
     {
         private readonly ApplicationDbContext _context;

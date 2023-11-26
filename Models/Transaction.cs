@@ -11,6 +11,7 @@ namespace MoneySenseWeb.Models
         [Required(ErrorMessage = "Campo obrigatório, por favor aponte a categoria")]
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
+        public string UserId { get; set; }
         [Range(1, int.MaxValue, ErrorMessage = "O valor valor precisa ser maior que zero")]
         public double Amount { get; set; }
         [DisplayName("Descrição")]
