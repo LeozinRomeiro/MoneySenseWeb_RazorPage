@@ -6,9 +6,9 @@ using System.Reflection.Emit;
 
 namespace MoneySenseWeb.Data;
 
-public class MoneySenseWebContext : IdentityDbContext<User>
+public class IdentityContext : IdentityDbContext<User>
 {
-    public MoneySenseWebContext(DbContextOptions<MoneySenseWebContext> options)
+    public IdentityContext(DbContextOptions<IdentityContext> options)
         : base(options)
     {
     }
@@ -23,6 +23,7 @@ public class MoneySenseWebContext : IdentityDbContext<User>
         builder.Ignore<IdentityUserToken<string>>();
         builder.Ignore<IdentityRoleClaim<string>>();
         builder.Ignore<IdentityRole<string>>();
+        builder.Entity<IdentityUserClaim<string>>().ToTable("AspNetUserClaims").HasKey(uc => uc.Id);
         builder.ApplyConfiguration(new UserMap());
     }
 }

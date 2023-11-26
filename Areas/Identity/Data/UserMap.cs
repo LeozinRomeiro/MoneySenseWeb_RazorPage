@@ -10,6 +10,16 @@ namespace MoneySenseWeb.Areas.Identity.Data
             
             builder.ToTable("User");
 
+            builder.Property(x => x.UserName)
+                .IsRequired()
+                .HasColumnName("Nome")
+                .HasColumnType("NVARCHAR(30)");
+
+            builder.Property(x => x.UserLastName)
+                .IsRequired()
+                .HasColumnName("Sobrenome")
+                .HasColumnType("NVARCHAR(30)");
+
         }
     }
 }
