@@ -10,8 +10,8 @@ namespace MoneySenseWeb.Pages.User
     {
         public List<Areas.Identity.Data.User> Users = new();
         private readonly ApplicationDbContext _context;
-        private readonly IdentityContext _identityContext;
-        public IndexModel(ApplicationDbContext context, IdentityContext identityContext)
+        private readonly ApplicationDbContext _identityContext;
+        public IndexModel(ApplicationDbContext context, ApplicationDbContext identityContext)
         {
             _context = context;
             _identityContext = identityContext;

@@ -12,12 +12,12 @@ namespace MoneySenseWeb.Areas.Identity.Data
 
             builder.Property(x => x.UserName)
                 .IsRequired()
-                .HasColumnName("Name")
+                .HasColumnName("UserName")
                 .HasColumnType("NVARCHAR(30)");
 
             builder.Property(x => x.UserLastName)
                 .IsRequired()
-                .HasColumnName("Last Name")
+                .HasColumnName("UserLastName")
                 .HasColumnType("NVARCHAR(30)");
 
             builder.Ignore(x => x.FullName);
