@@ -24,7 +24,7 @@ namespace MoneySenseWeb.Pages.Transaction
         }
         public async Task OnGetAsync()
         {
-            Transactions = await _context.Transactions.Include(t => t.Category).ToListAsync();
+            Transactions = await _context.Transactions.Include(t => t.Category).Include(t=>t.User).ToListAsync();
         }
     }
 }

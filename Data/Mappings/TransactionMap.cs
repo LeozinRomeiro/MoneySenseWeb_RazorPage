@@ -21,6 +21,11 @@ namespace MoneySenseWeb.Data.Mappings
                 .HasForeignKey(x => x.CategoryId)
                 .HasConstraintName("FK_TRANSACTION_CATEGORY");
 
+            builder.HasOne(x => x.User)
+                .WithMany()
+                .HasForeignKey(x => x.UserId)
+                .HasConstraintName("FK_TRANSACTION_USER");
+
             builder.Property(x => x.Amount)
                 .IsRequired()
                 .HasColumnName("Amount");

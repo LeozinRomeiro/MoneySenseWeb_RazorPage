@@ -20,6 +20,8 @@ namespace MoneySenseWeb.Areas.Identity.Data
                 .HasColumnName("Last Name")
                 .HasColumnType("NVARCHAR(30)");
 
+            builder.Ignore(x => x.FullName);
+
         }
     }
 }
