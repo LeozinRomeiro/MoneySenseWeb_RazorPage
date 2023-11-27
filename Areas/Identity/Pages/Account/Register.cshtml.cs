@@ -71,6 +71,7 @@ namespace MoneySenseWeb.Areas.Identity.Pages.Account
         /// </summary>
         public class InputModel
         {
+            [Required]
             [DataType(DataType.Text)]
             [Display(Name = "Nome")]
             public string Name { get; set; }

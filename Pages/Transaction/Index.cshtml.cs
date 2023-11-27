@@ -14,9 +14,9 @@ namespace MoneySenseWeb.Pages.Transaction
         public List<Models.Transaction> Transactions { get; set; } = new();
         private readonly ApplicationDbContext _context;
         private readonly ILogger<IndexModel> logger;
-        private readonly UserManager<User> userManager;
+        private readonly UserManager<Areas.Identity.Data.User> userManager;
 
-        public IndexModel(ApplicationDbContext context, ILogger<IndexModel> logger, UserManager<User> userManager)
+        public IndexModel(ApplicationDbContext context, ILogger<IndexModel> logger, UserManager<Areas.Identity.Data.User> userManager)
         {
             _context = context;
             this.logger = logger;

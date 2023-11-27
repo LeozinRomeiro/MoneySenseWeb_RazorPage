@@ -1,4 +1,5 @@
-﻿using System.ComponentModel;
+﻿using MoneySenseWeb.Areas.Identity.Data;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -12,6 +13,7 @@ namespace MoneySenseWeb.Models
         public int CategoryId { get; set; }
         public Category? Category { get; set; }
         public string UserId { get; set; }
+        public User? User {  get; set; } 
         [Range(1, int.MaxValue, ErrorMessage = "O valor valor precisa ser maior que zero")]
         public double Amount { get; set; }
         [DisplayName("Descrição")]

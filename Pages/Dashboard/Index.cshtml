@@ -1,52 +1,41 @@
-﻿    @page "/"
+﻿@page "/"
 @model MoneySenseWeb.Pages.Dashboard.IndexModel
 @{
 }
 
 @*Alteração de periodo*@
 <form asp-action="Edit">
-
     <div class="row mb-4">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="d-flex flex-row widget summary income">
                 <div class="d-flex flex-column justify-content-center p-5">
-                    <input type="date" name="StartDate" value="@Model.DeterminedDate.StartDate" />
+                    <label for="StartDate">Data inicial:</label>
+                    <input id="StartDate" name="StartDate" type="date" value="@Model.DeterminedDate.StartDate.ToString("yyyy-MM-dd")" />
                 </div>
-
             </div>
-
         </div>
 
-    </div>
-
-
-    <div class="row mb-2">
         <div class="col-md-2">
             <div class="d-flex flex-row widget summary income">
                 <div class="d-flex flex-column justify-content-center p-5">
-                    <button type="submit" formmethod="post" class="btn btn-sm btn-link no-a-decoration" asp-page-handler="Update">
-                        <i class="fa-solid fa-arrow-right-arrow-left fa-2xl" text="Alterar dados"></i>
+                    <button type="submit" class="btn btn-sm btn-link no-a-decoration" asp-page-handler="Update">
+                        <i class="fa-solid fa-sync fa-2x" text="Alterar dados"></i>
                     </button>
                 </div>
 
             </div>
 
         </div>
-
-    </div>
-
-    <div class="row mb-4">
-        <div class="col-md-4">
+        <div class="col-md-5">
             <div class="d-flex flex-row widget summary income">
                 <div class="d-flex flex-column justify-content-center p-5">
-                    <input type="date" name="EndDate" value="@Model.DeterminedDate.EndDate" />
+                    <label for="EndDate">Data final:</label>
+                    <input id="EndDate" name="EndDate" type="date" value="@Model.DeterminedDate.EndDate.ToString("yyyy-MM-dd")" />
                 </div>
-
             </div>
-
         </div>
-
     </div>
+
 </form>
 
 @*Painel de totalizacao*@
@@ -88,14 +77,14 @@
 
 @* Grafico de rosca *@
 <div class="row mb-4">
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="widget chart">
             <div class="title p-4">
                 <h5 class="fw-bold">Despesas por categoria</h5>
             </div>
             <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#1a222b">
                 <e-accumulation-series-collection>
-                    <e-accumulation-series dataSource="@Model.DoughnutChartData" xName="categoryTitleWithIcon" yName="amount"
+                    <e-accumulation-series dataSource="@Model.DoughnutChartDataCategory" xName="categoryTitleWithIcon" yName="amount"
                                            innerRadius="60%" legendShape="Circle"
                                            palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090","#313e93","#0096ac"})>
                         <e-accumulationseries-datalabel name="formattedValue" visible></e-accumulationseries-datalabel>
@@ -113,7 +102,33 @@
             </ejs-accumulationchart>
         </div>
     </div>
-    <div class="col-md-8">
+@*     <div class="col-md-6">
+        <div class="widget chart">
+            <div class="title p-4">
+                <h5 class="fw-bold">Despesas por Participante</h5>
+            </div>
+            <ejs-accumulationchart id="doughnutchart" enableSmartLabels background="#1a222b">
+                <e-accumulation-series-collection>
+                    <e-accumulation-series dataSource="@Model.DoughnutChartDataUser" xName="userName" yName="amount"
+                                           innerRadius="60%" legendShape="Circle"
+                                           palettes=@(new string[]{"#0e8d76","#a4b219","#cb9b00","#8a442c","#0454b5","#7d0a0a","#822690","#4c2090","#313e93","#0096ac"})>
+                        <e-accumulationseries-datalabel name="formattedValue" visible></e-accumulationseries-datalabel>
+                    </e-accumulation-series>
+                </e-accumulation-series-collection>
+                <e-accumulationchart-legendsettings position="Top">
+                    <e-legendsettings-textstyle color="#fff" size="1rem">
+
+                    </e-legendsettings-textstyle>
+                </e-accumulationchart-legendsettings>
+                <e-accumulationchart-tooltipsettings enable>
+
+                </e-accumulationchart-tooltipsettings>
+            </ejs-accumulationchart>
+        </div>
+    </div> *@
+</div>
+<div class="row mb-4">
+    <div class="col-md-12">
         <div class="widget chart">
             <div class="title p-4">
                 <h5 class="fw-bold"></h5>

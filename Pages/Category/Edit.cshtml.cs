@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using MoneySenseWeb.Data;
 
 namespace MoneySenseWeb.Pages.Category
 {
+    [Authorize]
     public class EditModel : PageModel
     {
         [BindProperty]

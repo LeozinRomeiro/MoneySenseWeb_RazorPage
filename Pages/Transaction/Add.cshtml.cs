@@ -14,13 +14,13 @@ namespace MoneySenseWeb.Pages.Transaction
     public class AddModel : PageModel
     {
         private readonly ILogger<IndexModel> logger;
-        private readonly UserManager<User> _userManager;
+        private readonly UserManager<Areas.Identity.Data.User> _userManager;
         [BindProperty]
         public Models.Transaction Transaction { get; set; } = new();
         public List<Models.Category> OptionsCategories = new ();
         private readonly ApplicationDbContext _context;
 
-        public AddModel(ApplicationDbContext context, ILogger<IndexModel> logger, UserManager<User> userManager)
+        public AddModel(ApplicationDbContext context, ILogger<IndexModel> logger, UserManager<Areas.Identity.Data.User> userManager)
         {
             _context = context;
             this.logger = logger;
