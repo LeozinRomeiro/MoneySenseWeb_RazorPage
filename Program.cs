@@ -16,13 +16,13 @@ namespace MoneySenseWeb
                 //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
-            builder.Services.AddDbContext<IdentityContext>(options =>
+            builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
                 //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-                 .AddEntityFrameworkStores<IdentityContext>();
+                 .AddEntityFrameworkStores<ApplicationDbContext>();
     
             // Add services to the container.
             builder.Services.AddRazorPages();

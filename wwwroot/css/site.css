@@ -378,6 +378,7 @@ html {
 }
 
 body {
+    color: black;
     margin-bottom: 60px;
     font-family: Roboto,sans-serif;
 }
