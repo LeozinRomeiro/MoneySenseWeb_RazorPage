@@ -18,7 +18,8 @@ namespace MoneySenseWeb.Pages.Dashboard
         public double TotalExpense { get; set; }
         public double Outcome { get; set; }
         public string OutcomeView { get; set; }
-        public object DoughnutChartDataCategory { get; set; }
+        public object DoughnutChartDataIncome { get; set; }
+        public object DoughnutChartDataExpense { get; set; }
         public object DoughnutChartDataUser { get; set; }
         public object SplineChartDataView { get; set; }
         public object RecentTransactions { get; set; }
@@ -60,8 +61,21 @@ namespace MoneySenseWeb.Pages.Dashboard
             Outcome.ToString();
             OutcomeView = String.Format(culture, "{0:C0}", Outcome);
 
-            //Grafico pizza categoria
-            DoughnutChartDataCategory = SelectedTransactions.Where(x => x.Category.Type == "Expense")
+            //Grafico pizza despesa
+            DoughnutChartDataExpense = SelectedTransactions.Where(x => x.Category.Type == "Expense")
+                .GroupBy(x => x.Category.CategoryId)
+                .Select(x => new
+                {
+                    categoryTitleWithIcon = x.First().Category.Icon + " " + x.First().Category.Title,
+                    amount = x.Sum(t => t.Amount),
+                    formattedValue = x.Sum(t => t.Amount).ToString("C0")
+
+                })
+                .OrderByDescending(x => x.amount)
+                .ToList();
+
+            //Grafico pizza receita
+            DoughnutChartDataIncome = SelectedTransactions.Where(x => x.Category.Type == "Income")
                 .GroupBy(x => x.Category.CategoryId)
                 .Select(x => new
                 {
