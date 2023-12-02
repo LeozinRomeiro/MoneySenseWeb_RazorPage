@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using MoneySenseWeb.Areas.Identity.Data;
 using MoneySenseWeb.Data;
@@ -22,8 +23,10 @@ namespace MoneySenseWeb
                 );
 
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-                 .AddEntityFrameworkStores<ApplicationDbContext>();
-    
+                 .AddEntityFrameworkStores<ApplicationDbContext>()
+                 .AddSignInManager<UserSignInManager<User>>();
+
+
             // Add services to the container.
             builder.Services.AddRazorPages();
 
