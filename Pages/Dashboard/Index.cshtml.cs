@@ -86,7 +86,19 @@ namespace MoneySenseWeb.Pages.Dashboard
                 })
                 .OrderByDescending(x => x.amount)
                 .ToList();
-            
+
+            //DoughnutChartDataIncome = SelectedTransactions.Where(x => x.User.)
+            //    .GroupBy(x => x.Category.CategoryId)
+            //    .Select(x => new
+            //    {
+            //        categoryTitleWithIcon = x.First().Category.Icon + " " + x.First().Category.Title,
+            //        amount = x.Sum(t => t.Amount),
+            //        formattedValue = x.Sum(t => t.Amount).ToString("C0")
+
+            //    })
+            //    .OrderByDescending(x => x.amount)
+            //    .ToList();
+
             ////Grafico pizza Participante
             //DoughnutChartDataUser = SelectedTransactions
             //    .GroupBy(x => x.UserId)

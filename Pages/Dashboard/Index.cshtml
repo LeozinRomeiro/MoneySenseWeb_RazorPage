@@ -77,7 +77,7 @@
 
 @* Grafico de rosca *@
 <div class="row mb-4">
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="widget chart">
             <div class="title p-4">
                 <h5 class="fw-bold">Despesas por categoria</h5>
@@ -197,9 +197,9 @@
                 <ejs-grid id="recent-transactions"
                           dataSource="@Model.RecentTransactions" gridLines="None">
                     <e-grid-columns>
-                        <e-grid-column headerText="Category" field="CategoryTitleWithIcon"></e-grid-column>
-                        <e-grid-column headerText="Date" field="Date" type="date" format="dd-MM-yy  "></e-grid-column>
-                        <e-grid-column headerText="Amount" field="FormattedValue" textAlign="Right"></e-grid-column>
+                        <e-grid-column headerText="Categoria" field="CategoryTitleWithIcon"></e-grid-column>
+                        <e-grid-column headerText="Data" field="Date" type="date" format="dd-MM-yy  "></e-grid-column>
+                        <e-grid-column headerText="Valor" field="FormattedValue" textAlign="Right"></e-grid-column>
                     </e-grid-columns>
                 </ejs-grid>
             </div>

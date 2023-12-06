@@ -18,6 +18,7 @@ using MoneySenseWeb.Areas.Identity.Data;
 
 namespace MoneySenseWeb.Areas.Identity.Pages.Account
 {
+    [AllowAnonymous]
     public class LoginModel : PageModel
     {
         private readonly UserSignInManager<User> _signInManager;
