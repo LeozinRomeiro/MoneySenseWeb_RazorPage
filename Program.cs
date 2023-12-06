@@ -1,4 +1,6 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using MoneySenseWeb.Areas.Identity.Data;
 using MoneySenseWeb.Data;
@@ -17,11 +19,6 @@ namespace MoneySenseWeb
                 //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
-            builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
-                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
-                );
-
             builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
                  .AddEntityFrameworkStores<ApplicationDbContext>()
                  .AddSignInManager<UserSignInManager<User>>();
@@ -33,6 +30,13 @@ namespace MoneySenseWeb
             builder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Conta/Login";
+            });
+
+            builder.Services.AddAuthorization(options =>
+            {
+                options.FallbackPolicy = new AuthorizationPolicyBuilder()
+                    .RequireAuthenticatedUser()
+                    .Build();
             });
 
             builder.Services.AddRazorPages(options =>
