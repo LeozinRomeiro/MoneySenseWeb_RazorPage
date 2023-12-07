@@ -25,12 +25,13 @@
             <div class="card login-logout-card">
                 <div class="card-header">
                     <ul class="nav nav-tabs card-header-tabs">
-                        @foreach (var item in navItems)
+@*                        @foreach (var item in navItems)
                         {
                             <li class="nav-item @(currentPage.Value.Contains(item.ToLower()) ? "active" : "")">
                                 <a class="nav-link" href="@item">@item.Substring(7)</a>
                             </li>
-                        }
+                        }*@
+                        <partial name="_NavItem" />
                     </ul>
                 </div>
                 <div class="card-body">

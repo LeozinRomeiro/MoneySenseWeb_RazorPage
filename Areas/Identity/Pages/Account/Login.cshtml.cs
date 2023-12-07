@@ -15,6 +15,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using MoneySenseWeb.Areas.Identity.Data;
+using System.Security.Claims;
 
 namespace MoneySenseWeb.Areas.Identity.Pages.Account
 {
@@ -22,11 +23,13 @@ namespace MoneySenseWeb.Areas.Identity.Pages.Account
     public class LoginModel : PageModel
     {
         private readonly UserSignInManager<User> _signInManager;
+        private readonly UserManager<User> _userManager;
         private readonly ILogger<LoginModel> _logger;
 
-        public LoginModel(UserSignInManager<User> signInManager, ILogger<LoginModel> logger)
+        public LoginModel(UserSignInManager<User> signInManager, UserManager<User> userManager, ILogger<LoginModel> logger)
         {
             _signInManager = signInManager;
+            _userManager = userManager;
             _logger = logger;
         }
 
@@ -131,6 +134,8 @@ namespace MoneySenseWeb.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("Usuário logado.");
+                    var user = await _userManager.FindByEmailAsync(Input.Email);
+                    await _userManager.AddClaimAsync(user, new Claim(ClaimTypes.Role, "Admin"));
                     return LocalRedirect(returnUrl);
                 }
                 if (result.RequiresTwoFactor)

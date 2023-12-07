@@ -37,6 +37,8 @@ namespace MoneySenseWeb
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
+
+                options.AddPolicy("SomenteFuncionario", policy => policy.RequireClaim("FuncionarioNumero"));
             });
 
             builder.Services.AddRazorPages(options =>

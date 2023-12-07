@@ -24,7 +24,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new TransactionMap());
         modelBuilder.ApplyConfiguration(new CategoryMap());
         modelBuilder.ApplyConfiguration(new UserMap());
-        modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("Permissao");
+        modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
         //modelBuilder.Ignore<IdentityUserClaim<string>>();
         modelBuilder.Ignore<IdentityUserRole<string>>();
         modelBuilder.Ignore<IdentityUserLogin<string>>();
