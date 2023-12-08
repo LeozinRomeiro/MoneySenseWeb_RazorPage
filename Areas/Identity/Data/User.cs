@@ -11,7 +11,8 @@ namespace MoneySenseWeb.Areas.Identity.Data;
 public class User : IdentityUser
 {
     public string UserLastName { get; set; }
-    public Family Family { get; set; }
+    public Family? Family { get; set; }
+    public int? FamilyId { get; set; }
     public string FullName { 
         get{
             return UserName + " " + UserLastName;

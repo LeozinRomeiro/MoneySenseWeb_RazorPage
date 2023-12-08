@@ -6,7 +6,7 @@ using MoneySenseWeb.Data;
 
 namespace MoneySenseWeb.Pages.Category
 {
-    [Authorize]
+    [AllowAnonymous]
     public class EditModel : PageModel
     {
         [BindProperty]
