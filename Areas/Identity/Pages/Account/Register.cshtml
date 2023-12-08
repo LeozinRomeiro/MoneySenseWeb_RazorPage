@@ -38,6 +38,15 @@
         <label asp-for="Input.ConfirmPassword">Confirmar senha</label>
         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
     </div>
+    <div class="form-check form-switch">
+        <div class="form-label">
+            <label class="form-label">Deseja incluir a familia?</label>
+        </div>
+        <ejs-switch id="individual" checked="true"></ejs-switch>
+        <label class="form-check-label">Uso individual</label>
+        <ejs-switch id="family"></ejs-switch>
+        <label class="form-check-label">Familia</label>
+    </div>
     <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrar</button>
 </form>
 
