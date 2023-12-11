@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.CodeAnalysis.Elfie.Model.Strings;
+using MoneySenseWeb.Models;
 
 namespace MoneySenseWeb.Areas.Identity.Data;
 

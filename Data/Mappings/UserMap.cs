@@ -23,6 +23,9 @@ namespace MoneySenseWeb.Data.Mappings
 
             builder.Ignore(x => x.FullName);
 
+            builder.HasOne(u => u.Family)
+                .WithMany()
+                .HasForeignKey(u => u.FamilyId);
         }
     }
 }
