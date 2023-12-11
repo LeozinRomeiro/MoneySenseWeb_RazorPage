@@ -7,6 +7,6 @@ namespace MoneySenseWeb.Areas.Identity.Data
         public int Id { get; set; }
         [Required(ErrorMessage = "Campo obrigatório, por favor preencha o sobrenome da familia")]
         public string Surname { get; set; }
-        public string Cod { get; set; }
+        public string Email { get; set; }
     }
 }

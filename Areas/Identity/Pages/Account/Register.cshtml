@@ -38,7 +38,7 @@
         <label asp-for="Input.ConfirmPassword">Confirmar senha</label>
         <span asp-validation-for="Input.ConfirmPassword" class="text-danger"></span>
     </div>
-    <div class="form-check form-switch">
+@*     <div class="form-check form-switch">
         <div class="form-label">
             <label class="form-label">Deseja incluir a familia?</label>
         </div>
@@ -46,6 +46,22 @@
         <label class="form-check-label">Uso individual</label>
         <ejs-switch id="family"></ejs-switch>
         <label class="form-check-label">Familia</label>
+    </div> *@
+    <div class="form-check form-switch">
+        <div class="form-label">
+            <label class="form-label">Deseja incluir a familia?</label>
+        </div>
+        <input type="checkbox" id="individual" checked="true" />
+        <label class="form-check-label">Uso individual</label>
+        <input type="checkbox" id="family" />
+        <label class="form-check-label">Familia</label>
+    </div>
+    <div id="familyFields" style="display: none;">
+        <div class="form-floating mb-3">
+            <input asp-for="Input.Email" class="form-control" autocomplete="username" aria-required="true" placeholder="family@example.com" />
+            <label asp-for="Input.Email">Email da Família</label>
+            <span asp-validation-for="Input.Email" class="text-danger"></span>
+        </div>
     </div>
     <button id="registerSubmit" type="submit" class="w-100 btn btn-lg btn-primary">Registrar</button>
 </form>
@@ -53,4 +69,27 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var individualSwitch = document.getElementById('individual');
+            var familySwitch = document.getElementById('family');
+            var familyFields = document.getElementById('familyFields');
+
+            individualSwitch.addEventListener('change', function () {
+                if (individualSwitch.checked) {
+                    familySwitch.checked = false;
+                    familyFields.style.display = 'none';
+                }
+            });
+
+            familySwitch.addEventListener('change', function () {
+                if (familySwitch.checked) {
+                    individualSwitch.checked = false;
+                    familyFields.style.display = 'block';
+                }
+            });
+        });
+    </script>
+        
 }
