@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MoneySenseWeb.Areas.Identity.Data;
 using MoneySenseWeb.Data;
 using System.Globalization;
@@ -16,12 +17,14 @@ namespace MoneySenseWeb
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
-                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
+            //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
+            builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedAccount = false; 
+                                                                    options.User.RequireUniqueEmail = true; } )
                  .AddEntityFrameworkStores<ApplicationDbContext>()
-                 .AddSignInManager<UserSignInManager<User>>();
+                 .AddSignInManager<UserSignInManager<User>>()
+                 .AddRoles<IdentityRole>();
 
 
             // Add services to the container.
@@ -32,13 +35,20 @@ namespace MoneySenseWeb
                 options.LoginPath = "/Conta/Login";
             });
 
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+            });
+
             builder.Services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
 
-                options.AddPolicy("SomenteFuncionario", policy => policy.RequireClaim("FuncionarioNumero"));
+                //options.AddPolicy("SomenteFuncionario", policy => policy.RequireClaim("FuncionarioNumero"));
             });
 
             builder.Services.AddRazorPages(options =>
@@ -50,6 +60,19 @@ namespace MoneySenseWeb
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF5cXmVCf1JpRGtGfV5yd0VAal5QTnRaUj0eQnxTdEZiWH5fcXxXR2JZVEJxWg==");
 
             var app = builder.Build();
+
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            //    string roleName = "Admin";
+
+            //    if (!await roleManager.RoleExistsAsync(roleName))
+            //    {
+            //        await roleManager.CreateAsync(new IdentityRole(roleName));
+            //    }
+            //}
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -72,6 +95,7 @@ namespace MoneySenseWeb
                 SupportedUICultures = supportedCultures
             });
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapRazorPages();
