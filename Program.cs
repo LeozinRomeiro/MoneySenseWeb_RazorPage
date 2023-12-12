@@ -17,12 +17,12 @@ namespace MoneySenseWeb
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
-            //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
             builder.Services
-                .AddIdentity<User, IdentityRole>(ConfigureIdentityOptions)
+                .AddIdentity<User, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddSignInManager<UserSignInManager<User>>()
                 .AddRoles<IdentityRole>();
@@ -31,8 +31,11 @@ namespace MoneySenseWeb
             void ConfigureIdentityOptions(IdentityOptions options)
             {
                 options.SignIn.RequireConfirmedAccount = false;
-                options.User.RequireUniqueEmail = true;
+                options.User.RequireUniqueEmail = false;
+                options.SignIn.RequireConfirmedEmail = false;
             }
+
+            builder.Services.Configure<IdentityOptions>(ConfigureIdentityOptions);
 
 
             // Add services to the container.
