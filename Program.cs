@@ -6,6 +6,7 @@ using Microsoft.Extensions.Options;
 using MoneySenseWeb.Areas.Identity.Data;
 using MoneySenseWeb.Data;
 using System.Globalization;
+using System.Security.Claims;
 
 namespace MoneySenseWeb
 {
@@ -20,11 +21,18 @@ namespace MoneySenseWeb
             //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
-            builder.Services.AddDefaultIdentity<User>(options => { options.SignIn.RequireConfirmedAccount = false; 
-                                                                    options.User.RequireUniqueEmail = true; } )
-                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                 .AddSignInManager<UserSignInManager<User>>()
-                 .AddRoles<IdentityRole>();
+            builder.Services
+                .AddIdentity<User, IdentityRole>(ConfigureIdentityOptions)
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager<UserSignInManager<User>>()
+                .AddRoles<IdentityRole>();
+
+            // Configuração das opções padrão para Identity
+            void ConfigureIdentityOptions(IdentityOptions options)
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = true;
+            }
 
 
             // Add services to the container.
@@ -48,7 +56,10 @@ namespace MoneySenseWeb
                     .RequireAuthenticatedUser()
                     .Build();
 
-                //options.AddPolicy("SomenteFuncionario", policy => policy.RequireClaim("FuncionarioNumero"));
+                options.AddPolicy("Admin", policy =>
+                    policy.RequireAssertion(context =>
+                        context.User.HasClaim(c => c.Type == "FamiliaId")
+                        && context.User.FindFirst("FamiliaId").Value == ((ClaimsPrincipal)context.Resource).FindFirst("FamiliaId").Value));
             });
 
             builder.Services.AddRazorPages(options =>

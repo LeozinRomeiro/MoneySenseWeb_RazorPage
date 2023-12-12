@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using MoneySenseWeb.Areas.Identity.Data;
 using MoneySenseWeb.Data.Mappings;
@@ -6,7 +7,7 @@ using MoneySenseWeb.Models;
 
 namespace MoneySenseWeb.Data;
 
-public class ApplicationDbContext : DbContext 
+public class ApplicationDbContext : IdentityDbContext<User>
 {
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
@@ -27,6 +28,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new UserMap());
         modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
         modelBuilder.Entity<IdentityRole<string>>().ToTable("Role");
+        modelBuilder.Entity<IdentityRole>().HasData(new IdentityRole { Name = "Admin", NormalizedName = "ADMIN" });
         modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRole");
         //modelBuilder.Ignore<IdentityUserClaim<string>>();
         modelBuilder.Ignore<IdentityUserLogin<string>>();
