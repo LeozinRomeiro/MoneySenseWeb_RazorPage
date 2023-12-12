@@ -26,11 +26,11 @@ public class ApplicationDbContext : DbContext
         modelBuilder.ApplyConfiguration(new CategoryMap());
         modelBuilder.ApplyConfiguration(new UserMap());
         modelBuilder.Entity<IdentityUserClaim<string>>().ToTable("UserClaim");
+        modelBuilder.Entity<IdentityRole<string>>().ToTable("Role");
+        modelBuilder.Entity<IdentityUserRole<string>>().ToTable("UserRole");
         //modelBuilder.Ignore<IdentityUserClaim<string>>();
-        modelBuilder.Ignore<IdentityUserRole<string>>();
         modelBuilder.Ignore<IdentityUserLogin<string>>();
         modelBuilder.Ignore<IdentityUserToken<string>>();
         modelBuilder.Ignore<IdentityRoleClaim<string>>();
-        modelBuilder.Ignore<IdentityRole<string>>();
     }
 }

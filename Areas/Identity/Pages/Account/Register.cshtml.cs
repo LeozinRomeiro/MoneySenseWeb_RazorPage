@@ -145,7 +145,7 @@ namespace MoneySenseWeb.Areas.Identity.Pages.Account
                 await _emailStore.SetEmailAsync(user, Input.Email, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 Claim claim = new Claim("FamiliaId", "1");
-                await _userManager.AddToRoleAsync(user, claim);
+                //await _userManager.AddToRoleAsync(user, claim);
 
                 if (result.Succeeded)
                 {
