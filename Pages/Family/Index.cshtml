@@ -1,4 +1,4 @@
-﻿ @page "/Familia"
+﻿@page "/Familia"
 @model User.IndexModel
 @{
     ViewData["PageTitle"] = "Usuarios";
@@ -14,7 +14,7 @@
                     <e-grid-column headerText="Nome" field="UserName"></e-grid-column>
                     <e-grid-column headerText="Sobrenome" field="UserLastName"></e-grid-column>
                     <e-grid-column headerText="Email" field="Email"></e-grid-column>
-                    <e-grid-column headertemplate="Responsável" type="checkbox" width="100px" displayAsCheckBox="true"></e-grid-column>
+                    <e-grid-column headerText="Responsável" headertemplate="roleTemplate"width="100px"></e-grid-column>
                 </e-grid-columns>
             </ejs-grid>
         </div>
@@ -30,5 +30,41 @@
                 <i class="fa-solid fa-pen fa-lg"></i>
             </a>
         </div>
+    </script>
+    <script id="roleTemplate" type="text/x-template">
+        <div>
+        @foreach (var role in Model.AvailableRoles)
+        {
+            @foreach (var user in Model.Users)
+            {
+                <div>
+                    <input type="checkbox" id="@($"chk_{user.Id}_{role}")" @(user.IsAdmin ? "checked" : "") />
+                            <label for="@($"chk_{user.Id}_{role}")">@role</label>
+                </div>
+            }
+        }
+        </div>
+    </script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.getElementById("usuarios").addEventListener("change", function (event) {
+                if (event.target.type === "checkbox") {
+                    var userId = event.target.id.split("_")[1];
+                    var selectedRoles = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="chk_${userId}"]:checked`)).map(x => x.nextSibling.textContent);
+
+                    fetch(`?handler=UpdateRoles&userId=${userId}`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                        },
+                        body: JSON.stringify({ userId: userId, selectedRoles: selectedRoles })
+                    })
+                    .then(response => response.json())
+                    .then(data => console.log(data))
+                    .catch(error => console.error('Error:', error));
+                }
+            });
+        });
     </script>
 }
