@@ -1,7 +1,7 @@
 ﻿@page "/Familia/criar"
 @model Family.AddModel
 @{
-    ViewData["PageTitle"] =  "Nova categoria";
+    ViewData["PageTitle"] =  "Registrar família";
 }
 
 <div class="row">
@@ -12,27 +12,17 @@
                     <ejs-textbox id="Surname" placeholder="Sobrenome" ejs-for="Model.Surname" floatLabelType="Always"></ejs-textbox>
                     <span asp-validation-for="Model.Surname" class="text-danger fs-6"> </span>
                 </div>
-                <div id="familyFields" style="display: none;">
+                <div class="mb-3">
                     <div class="form-floating mb-3">
-                        <input asp-for="Model.Email" class="form-control" autocomplete="email" aria-required="true" placeholder="family@example.com" />
-                        <label asp-for="Model.Email">Email da Família</label>
-                        <span asp-validation-for="Model.Email" class="text-danger"></span>
+                        <ejs-textbox id="Email" placeholder="Email da Família" ejs-for="Model.Email" floatLabelType="Always"></ejs-textbox>
+                        <span asp-validation-for="Model.Email" class="text-danger fs-6"></span>
                     </div>
                 </div>
-                <div class="form-check form-switch">
-                    <div class="form-label">
-                        <label class="form-label">Deseja incluir a familia?</label>
+                <div class="mb-3">
+                    <div class="form-floating mb-3">
+                        <ejs-textbox id="Password" placeholder="Senha" ejs-for="Model.Password" type="password" floatLabelType="Always"></ejs-textbox>
+                        <span asp-validation-for="Model.Password" class="text-danger fs-6"></span>
                     </div>
-                    <input type="checkbox" id="individual" checked="true" />
-                    <label class="form-check-label">Uso individual</label>
-                    <input type="checkbox" id="family" />
-                    <label class="form-check-label">Familia</label>
-                </div>
-
-                <div class="form-floating mb-3">
-                    <input asp-for="Model.Password" class="form-control" autocomplete="new-password" aria-required="true" placeholder="password" />
-                    <label asp-for="Model.Password">Senha</label>
-                    <span asp-validation-for="Model.Password" class="text-danger"></span>
                 </div>
                 <ejs-button id="submit" type="submit" content="Salvar" cssClass="e-success"></ejs-button>
             </form>
