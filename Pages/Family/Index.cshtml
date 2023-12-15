@@ -4,67 +4,47 @@
     ViewData["PageTitle"] = "Usuarios";
 }
 
-@{
-    <div class="row">
-        <div class="col-md-7">
-            <ejs-grid id="usuarios"  dataSource="@Model.Users" gridLines="None">
-                <e-grid-pagesettings pageSize="5"></e-grid-pagesettings>
-                <e-grid-selectionsettings allowColumnSelection="false" checkboxMode="Default" type="Multiple"></e-grid-selectionsettings>
-                <e-grid-columns>
-                    <e-grid-column headerText="Nome" field="UserName"></e-grid-column>
-                    <e-grid-column headerText="Sobrenome" field="UserLastName"></e-grid-column>
-                    <e-grid-column headerText="Email" field="Email"></e-grid-column>
-                    <e-grid-column headerText="Responsável" headertemplate="roleTemplate"width="100px"></e-grid-column>
-                </e-grid-columns>
-            </ejs-grid>
-        </div>
-        <div class="col-md-5">
-            <div class="widget h-100 d-flex justify-content-center align-items-center">
-                <i class="fa-solid fa-shapes fa-2xl"></i>
-            </div>
-        </div>
-    </div>
-    <script id="actionColumnTemplate" type="text/x-template">
-        <div class="d-flex flex-row justify-content-start">
-            <a class="btn btn-sm no-a-decoration" href="/movimentacoes/editar/${TransactionId}">
-                <i class="fa-solid fa-pen fa-lg"></i>
-            </a>
-        </div>
-    </script>
-    <script id="roleTemplate" type="text/x-template">
-        <div>
-        @foreach (var role in Model.AvailableRoles)
-        {
-            @foreach (var user in Model.Users)
-            {
-                <div>
-                    <input type="checkbox" id="@($"chk_{user.Id}_{role}")" @(user.IsAdmin ? "checked" : "") />
-                            <label for="@($"chk_{user.Id}_{role}")">@role</label>
-                </div>
-            }
-        }
-        </div>
-    </script>
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.getElementById("usuarios").addEventListener("change", function (event) {
-                if (event.target.type === "checkbox") {
-                    var userId = event.target.id.split("_")[1];
-                    var selectedRoles = Array.from(document.querySelectorAll(`input[type="checkbox"][id^="chk_${userId}"]:checked`)).map(x => x.nextSibling.textContent);
+<h1>Gerenciamento de Usuários</h1>
 
-                    fetch(`?handler=UpdateRoles&userId=${userId}`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
-                        },
-                        body: JSON.stringify({ userId: userId, selectedRoles: selectedRoles })
-                    })
-                    .then(response => response.json())
-                    .then(data => console.log(data))
-                    .catch(error => console.error('Error:', error));
-                }
-            });
-        });
-    </script>
+@if (!User.IsInRole("Admin"))
+{
+    <p>Você está logado como administrador e pode gerenciar os usuários.</p>
 }
+else
+{
+    <p>Você não tem permissão para gerenciar usuários.</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="display: none;">ID</th>
+            <th>Nome de Usuário</th>
+            <th>Email</th>
+            <th>Responsavel</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td style="display: none;">@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <input type="hidden" asp-for="User.Id" value="@user.Id" />
+                            <input type="submit" class="btn btn-sm btn-primary" value="Tornar Admin" />
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
