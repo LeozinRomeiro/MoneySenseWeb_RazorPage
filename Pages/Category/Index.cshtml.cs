@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
@@ -6,6 +7,7 @@ using MoneySenseWeb.Models;
 
 namespace MoneySenseWeb.Pages.Category
 {
+    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         public List<Models.Category> Categories = new();

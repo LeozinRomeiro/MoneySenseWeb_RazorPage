@@ -1,0 +1,23 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using MoneySenseWeb.Areas.Identity.Data
+
+@inject SignInManager<User> SignInManager
+@inject UserManager<User> UserManager
+@{
+    var navItems = new List<string>{};
+    if (SignInManager.IsSignedIn(User))
+    {
+        navItems = new List<string> { "/Familia/Criar", "/Familia/Entrar", "/Familia/Individual" };
+    }
+    else
+    {
+        navItems = new List<string> { "/Conta/Login", "/Conta/Registrar" };
+    }
+    var currentPage = Context.Request.Path;
+}
+@foreach (var item in navItems)
+{
+    <li class="nav-item @(currentPage.Value.Contains(item.ToLower()) ? "active" : "")">
+        <a class="nav-link" href="@item">@item.Substring(7)</a>
+    </li>
+}

@@ -1,0 +1,50 @@
+﻿@page "/Familia"
+@model User.IndexModel
+@{
+    ViewData["PageTitle"] = "Usuarios";
+}
+
+<h1>Gerenciamento de Usuários</h1>
+
+@if (!User.IsInRole("Admin"))
+{
+    <p>Você está logado como administrador e pode gerenciar os usuários.</p>
+}
+else
+{
+    <p>Você não tem permissão para gerenciar usuários.</p>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th style="display: none;">ID</th>
+            <th>Nome de Usuário</th>
+            <th>Email</th>
+            <th>Responsavel</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Model.Users)
+        {
+            <tr>
+                <td style="display: none;">@user.Id</td>
+                <td>@user.UserName</td>
+                <td>@user.Email</td>
+                <td>
+                    @if (User.IsInRole("Admin"))
+                    {
+                        
+                    }
+                    else
+                    {
+                        <form method="post">
+                            <input type="hidden" asp-for="User.Id" value="@user.Id" />
+                            <input type="submit" class="btn btn-sm btn-primary" value="Tornar Admin" />
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

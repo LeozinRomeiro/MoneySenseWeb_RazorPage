@@ -2,9 +2,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using MoneySenseWeb.Areas.Identity.Data;
 using MoneySenseWeb.Data;
 using System.Globalization;
+using System.Security.Claims;
 
 namespace MoneySenseWeb
 {
@@ -15,13 +17,25 @@ namespace MoneySenseWeb
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
-                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
-            builder.Services.AddDefaultIdentity<User>(options => options.SignIn.RequireConfirmedAccount = false)
-                 .AddEntityFrameworkStores<ApplicationDbContext>()
-                 .AddSignInManager<UserSignInManager<User>>();
+            builder.Services
+                .AddIdentity<User, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddSignInManager<UserSignInManager<User>>()
+                .AddRoles<IdentityRole>();
+
+            // Configuração das opções padrão para Identity
+            void ConfigureIdentityOptions(IdentityOptions options)
+            {
+                options.SignIn.RequireConfirmedAccount = false;
+                options.User.RequireUniqueEmail = false;
+                options.SignIn.RequireConfirmedEmail = false;
+            }
+
+            builder.Services.Configure<IdentityOptions>(ConfigureIdentityOptions);
 
 
             // Add services to the container.
@@ -32,11 +46,23 @@ namespace MoneySenseWeb
                 options.LoginPath = "/Conta/Login";
             });
 
+            builder.Services.Configure<IdentityOptions>(options =>
+            {
+                options.Password.RequireNonAlphanumeric = false;
+                options.Password.RequireDigit = false;
+                options.Password.RequireLowercase = false;
+            });
+
             builder.Services.AddAuthorization(options =>
             {
                 options.FallbackPolicy = new AuthorizationPolicyBuilder()
                     .RequireAuthenticatedUser()
                     .Build();
+
+                options.AddPolicy("Admin", policy =>
+                    policy.RequireAssertion(context =>
+                        context.User.HasClaim(c => c.Type == "FamiliaId")
+                        && context.User.FindFirst("FamiliaId").Value == ((ClaimsPrincipal)context.Resource).FindFirst("FamiliaId").Value));
             });
 
             builder.Services.AddRazorPages(options =>
@@ -48,6 +74,19 @@ namespace MoneySenseWeb
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF5cXmVCf1JpRGtGfV5yd0VAal5QTnRaUj0eQnxTdEZiWH5fcXxXR2JZVEJxWg==");
 
             var app = builder.Build();
+
+            //using (var scope = app.Services.CreateScope())
+            //{
+            //    var services = scope.ServiceProvider;
+            //    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
+
+            //    string roleName = "Admin";
+
+            //    if (!await roleManager.RoleExistsAsync(roleName))
+            //    {
+            //        await roleManager.CreateAsync(new IdentityRole(roleName));
+            //    }
+            //}
 
             // Configure the HTTP request pipeline.
             if (!app.Environment.IsDevelopment())
@@ -70,6 +109,7 @@ namespace MoneySenseWeb
                 SupportedUICultures = supportedCultures
             });
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapRazorPages();

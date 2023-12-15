@@ -1,0 +1,40 @@
+﻿@page "/Familia/criar"
+@model Family.AddModel
+@{
+    ViewData["PageTitle"] =  "Registrar família";
+}
+
+<div class="row">
+    <div class="col-md-7">
+        <div class="widget p-5">
+            <form method="post">
+                <div class="mb-3">
+                    <ejs-textbox id="Surname" placeholder="Sobrenome" ejs-for="Model.Surname" floatLabelType="Always"></ejs-textbox>
+                    <span asp-validation-for="Model.Surname" class="text-danger fs-6"> </span>
+                </div>
+                <div class="mb-3">
+                    <div class="form-floating mb-3">
+                        <ejs-textbox id="Email" placeholder="Email da Família" ejs-for="Model.Email" floatLabelType="Always"></ejs-textbox>
+                        <span asp-validation-for="Model.Email" class="text-danger fs-6"></span>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <div class="form-floating mb-3">
+                        <ejs-textbox id="Password" placeholder="Senha" ejs-for="Model.Password" type="password" floatLabelType="Always"></ejs-textbox>
+                        <span asp-validation-for="Model.Password" class="text-danger fs-6"></span>
+                    </div>
+                </div>
+                <ejs-button id="submit" type="submit" content="Salvar" cssClass="e-success"></ejs-button>
+            </form>
+        </div>
+    </div>
+    <div class  ="col-md-5">
+        <div class="widget h-100 d-flex justify-content-center align-items-center">
+            <i class="fa-solid fa-shapes fa-2xl"></i>
+        </div>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

@@ -3,15 +3,14 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 using MoneySenseWeb.Data;
-using MoneySenseWeb.Models.ViewModels;
+using MoneySenseWeb.Models;
 
-namespace MoneySenseWeb.Pages.Category
+namespace MoneySenseWeb.Pages.Family
 {
-    [AllowAnonymous]
     public class AddModel : PageModel
     {
         [BindProperty]
-        public AddCategoryViewModel CategoryRequest { get; set; } = new();
+        public Models.Family Model { get; set; } = new();
         private readonly ApplicationDbContext _context;
         public AddModel(ApplicationDbContext context)
         {
@@ -23,17 +22,24 @@ namespace MoneySenseWeb.Pages.Category
         }
         public async Task<IActionResult> OnPostAsync()
         {
-            var category = new Models.Category
+            var cod = new Random().Next(1,9999).ToString();
+
+            var family = new Models.Family
             {
-                Title = CategoryRequest.Title,
-                Description = CategoryRequest.Description,
-                Icon = CategoryRequest.Icon,
-                Type = CategoryRequest.Type
+                Surname = Model.Surname,
+                Email = Model.Email,
+                Password= Model.Password,
+                Cod = cod
             };
-            await _context.Categories.AddAsync(category);
+            await _context.Familys.AddAsync(family);
             await _context.SaveChangesAsync();
 
             return this.RedirectToPage(nameof(Index));
+        }
+        private int RandomNumber(int min, int max)
+        {
+            Random random = new Random();
+            return random.Next(min, max);
         }
     }
 }
