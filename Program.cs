@@ -17,8 +17,8 @@ namespace MoneySenseWeb
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Services.AddDbContext<ApplicationDbContext>(options =>
-                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
-                options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DevDockerConnection"))
+                //options.UseSqlServer(builder.Configuration.GetConnectionString("DevSSMSConnection"))
                 );
 
             builder.Services
@@ -27,7 +27,7 @@ namespace MoneySenseWeb
                 .AddSignInManager<UserSignInManager<User>>()
                 .AddRoles<IdentityRole>();
 
-            // Configuração das opções padrão para Identity
+            // Configuraï¿½ï¿½o das opï¿½ï¿½es padrï¿½o para Identity
             void ConfigureIdentityOptions(IdentityOptions options)
             {
                 options.SignIn.RequireConfirmedAccount = false;
@@ -71,7 +71,7 @@ namespace MoneySenseWeb
             });
 
             //Register Syncfusion license
-            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF5cXmVCf1JpRGtGfV5yd0VAal5QTnRaUj0eQnxTdEZiWH5fcXxXR2JZVEJxWg==");
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1NHaF1cWWhIYVJyWmFZfVpgc19GYFZUQGY/P1ZhSXxQd0diXH5XcHRQQGBUUkU=");
 
             var app = builder.Build();
 

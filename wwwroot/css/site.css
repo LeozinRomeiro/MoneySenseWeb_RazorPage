@@ -3,23 +3,22 @@ html {
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
     margin-bottom: 60px;
-    color: #fff;
 }
 
 html {
@@ -96,7 +95,6 @@ body {
 .e-grid {
     border: 0;
     border-radius: 5px;
-    color:white;
 }
 
     .e-grid .e-gridcontent, .e-grid .e-table {
@@ -167,26 +165,7 @@ body {
 }
 
 /*Profile Pic*/
-img.profile-pic {
-    width: 45px;
-    height: 45px;
-    border-radius: 50%;
-}
 
-.profile-wrapper {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    background-color: rgba(72, 84, 95, 0.12);
-    padding: 16px 20px;
-    border-radius: 12px;
-    cursor: pointer;
-    margin-bottom: 30px;
-}
-
-    .profile-wrapper .titles {
-        line-height: 1;
-    }
 
 /*Radio Button Group*/
 .e-btn-group.custom-rbt-group {
@@ -408,16 +387,3 @@ body {
 .login-logout-card .card-body {
     padding: 10px 20px;
 }
-
-/*Telas de inserção*/
-/*
-
-.e-float-input.e-control-wrapper:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input:valid ~ label.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error) input[disabled] ~ label.e-label-top.e-float-text, .e-float-input .e-control-wrapper:not(.e-error) input label.e-float-text.e-label-top, .e-float-input.e-control-wrapper.e-bigger:not(.e-error) input:focus ~ label.e-float-text, .e-float-input.e-control-wrapper.e-bigger:not(.e-error) input:valid ~ label.e-float-text, .e-float-input.e-control-wrapper.e-bigger:not(.e-error) input ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper.e-bigger:not(.e-error) input[readonly] ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper.e-bigger:not(.e-error) input[disabled] ~ label.e-label-top.e-float-text, .e-bigger .e-float-input.e-control-wrapper:not(.e-error) input:focus ~ label.e-float-text, .e-bigger .e-float-input.e-control-wrapper:not(.e-error) input:valid ~ label.e-float-text, .e-bigger .e-float-input.e-control-wrapper:not(.e-error) input ~ label.e-label-top.e-float-text, .e-bigger .e-float-input.e-control-wrapper:not(.e-error) input[readonly] ~ label.e-label-top.e-float-text, .e-bigger .e-float-input.e-control-wrapper:not(.e-error) input[disabled] ~ label.e-label-top.e-float-text, .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input ~ label.e-float-text, .e-float-input.e-control-wrapper.e-bigger:not(.e-error).e-input-focus input ~ label.e-float-text, .e-bigger .e-float-input.e-control-wrapper:not(.e-error).e-input-focus input ~ label.e-float-text {
-    color: white;
-}
-
-.e-input-group input.e-input, .e-input-group.e-control-wrapper input.e-input, .e-float-input input, .e-float-input.e-control-wrapper input, .e-input-group textarea.e-input, .e-input-group.e-control-wrapper textarea.e-input, .e-float-input textarea, .e-float-input.e-control-wrapper textarea, .e-input-group .e-input[disabled], .e-input-group.e-control-wrapper .e-input[disabled], .e-input-group.e-disabled input.e-input, .e-input-group.e-control-wrapper.e-disabled input.e-input, .e-input-group.e-disabled textarea.e-input, .e-input-group.e-control-wrapper.e-disabled textarea.e-input {
-    background: none;
-    color: white;
-}
-*/

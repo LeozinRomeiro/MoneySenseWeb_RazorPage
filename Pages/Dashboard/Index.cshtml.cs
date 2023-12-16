@@ -133,7 +133,7 @@ namespace MoneySenseWeb.Pages.Dashboard
                 })
                 .ToList();
 
-            string[] Last7Days = Enumerable.Range(0, 30)
+            string[] Last7Days = Enumerable.Range(0, 15)
                 .Select(i => DeterminedDate.StartDate.AddDays(i).ToString("dd-MMM"))
                 .ToArray();
 

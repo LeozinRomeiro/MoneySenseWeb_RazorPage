@@ -7,7 +7,6 @@ using MoneySenseWeb.Models;
 
 namespace MoneySenseWeb.Pages.Category
 {
-    [Authorize(Roles = "Admin")]
     public class IndexModel : PageModel
     {
         public List<Models.Category> Categories = new();
